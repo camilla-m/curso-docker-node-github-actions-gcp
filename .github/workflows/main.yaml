@@ -27,12 +27,12 @@ jobs:
       - name: Build and Push to Artifact Registry
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
-          docker build -t us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/repo/${{ env.SERVICE_NAME }}:${{ github.sha }} .
-          docker push us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/repo/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          docker build -t us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/docker-cami/${{ env.SERVICE_NAME }}:${{ github.sha }} .
+          docker push us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/docker-cami/${{ env.SERVICE_NAME }}:${{ github.sha }}
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: ${{ env.SERVICE_NAME }}
-          image: us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/repo/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          image: us-central1-docker.pkg.dev/${{ env.PROJECT_ID }}/docker-cami/${{ env.SERVICE_NAME }}:${{ github.sha }}
           region: ${{ env.REGION }}

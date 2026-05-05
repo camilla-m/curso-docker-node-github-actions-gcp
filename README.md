@@ -18,6 +18,10 @@ gcloud artifacts repositories create $REPO_NAME \
     --location=$REGION \
     --description="Repositorio Docker para o curso"
 
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member="serviceAccount:$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com" \
+    --role="roles/artifactregistry.writer"
+
 gcloud iam service-accounts create $SA_NAME \
     --display-name="Service Account para GitHub Actions"
 
@@ -34,4 +38,4 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
     --role="roles/iam.serviceAccountUser"
 
 gcloud iam service-accounts keys create key.json \
-    --iam-account=$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com# curso-docker-node-github-actions-gcp
+    --iam-account=$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com
